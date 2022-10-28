@@ -1,7 +1,7 @@
 package com.andreyenka.wimixtest.service.impl;
 
-import com.andreyenka.wimixtest.entity.Role;
-import com.andreyenka.wimixtest.entity.User;
+import com.andreyenka.wimixtest.entity.user.Role;
+import com.andreyenka.wimixtest.entity.user.User;
 import com.andreyenka.wimixtest.repository.RoleRepository;
 import com.andreyenka.wimixtest.repository.UserRepository;
 import com.andreyenka.wimixtest.service.UserService;

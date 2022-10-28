@@ -1,5 +1,6 @@
 package com.andreyenka.wimixtest.controller;
 
+import com.andreyenka.wimixtest.entity.user.Role;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,5 +21,7 @@ public class RegistrationRequest {
     private String lastName;
 
     private int age;
+
+    private Role role;
 
 }

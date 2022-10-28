@@ -4,7 +4,7 @@ import com.andreyenka.wimixtest.config.jwt.JwtProvider;
 import com.andreyenka.wimixtest.service.UserService;
 import com.andreyenka.wimixtest.service.impl.UserServiceImpl;
 import com.andreyenka.wimixtest.service.dto.UserDto;
-import com.andreyenka.wimixtest.util.AppConstants;
+import com.andreyenka.wimixtest.util.ConstantsForPagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +26,10 @@ public class UserController {
 
     @GetMapping
     public UserResponse getAllUsers(
-            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+            @RequestParam(value = "pageNo", defaultValue = ConstantsForPagination.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = ConstantsForPagination.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ConstantsForPagination.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ConstantsForPagination.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ) {
         return userService.getAllUser(pageNo, pageSize, sortBy, sortDir);
     }
@@ -68,5 +68,4 @@ public class UserController {
         String token = jwtProvider.generateToken(user.getLogin());
         return new AuthResponse(token);
     }
-
 }

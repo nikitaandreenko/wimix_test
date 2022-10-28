@@ -1,4 +1,4 @@
-package com.andreyenka.wimixtest.entity;
+package com.andreyenka.wimixtest.entity.user;
 
 import lombok.Data;
 

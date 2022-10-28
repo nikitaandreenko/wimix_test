@@ -1,12 +1,13 @@
 package com.andreyenka.wimixtest.service.dto;
 
-import com.andreyenka.wimixtest.entity.User;
+import com.andreyenka.wimixtest.entity.user.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectMapperService {
     public UserDto toDto(User entity) {
         UserDto dto = new UserDto();
+        dto.setId(entity.getId());
         dto.setLogin(entity.getLogin());
         dto.setPassword(entity.getPassword());
         dto.setFirstName(entity.getFirstName());
@@ -18,6 +19,7 @@ public class ObjectMapperService {
 
     public User toEntity(UserDto dto) {
         User entity = new User();
+        entity.setId(dto.getId());
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
         entity.setFirstName(dto.getFirstName());
