@@ -23,8 +23,7 @@ public class SocketController {
     @MessageMapping(SECURED_CHAT)
     @SendTo(SECURED_CHAT_HISTORY)
     public OutputMessage sendAll(com.andreyenka.wimixtest.entity.socket.Message msg) throws Exception {
-        OutputMessage out = new OutputMessage(msg.getFrom(), msg.getText(), new SimpleDateFormat("HH:mm").format(new Date()));
-        return out;
+        return new OutputMessage(msg.getFrom(), msg.getText(), new SimpleDateFormat("HH:mm").format(new Date()));
     }
     @MessageMapping(SECURED_CHAT_ROOM)
     public void sendSpecific(@Payload Message msg, Principal user, @Header("simpSessionId") String sessionId) throws Exception {

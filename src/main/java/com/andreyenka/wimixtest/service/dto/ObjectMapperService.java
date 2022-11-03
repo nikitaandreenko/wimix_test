@@ -28,6 +28,4 @@ public class ObjectMapperService {
         entity.setRole(dto.getRole());
         return entity;
     }
-
-
 }

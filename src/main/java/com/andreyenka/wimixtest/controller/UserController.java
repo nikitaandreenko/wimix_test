@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -40,19 +41,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserDto registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        UserDto userDto = new UserDto();
-        userDto.setPassword(registrationRequest.getPassword());
-        userDto.setLogin(registrationRequest.getLogin());
-        userDto.setFirstName(registrationRequest.getFirstName());
-        userDto.setLastName(registrationRequest.getLastName());
-        userDto.setAge(registrationRequest.getAge());
-        userService.create(userDto);
-        return userDto;
+    public UserDto registerUser(@RequestBody @Valid UserDto userDto) {
+
+        return userService.create(userDto);
     }
 
     @PutMapping
-    public UserDto updateUser(@RequestBody UserDto user) {
+    public UserDto updateUser(@RequestBody @Valid UserDto user) {
         return userService.update(user);
     }
 

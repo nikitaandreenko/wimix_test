@@ -1,14 +1,11 @@
 package com.andreyenka.wimixtest.service.impl;
 
-import com.andreyenka.wimixtest.entity.user.Role;
 import com.andreyenka.wimixtest.entity.user.User;
-import com.andreyenka.wimixtest.repository.RoleRepository;
 import com.andreyenka.wimixtest.repository.UserRepository;
 import com.andreyenka.wimixtest.service.UserService;
 import com.andreyenka.wimixtest.service.dto.ObjectMapperService;
 import com.andreyenka.wimixtest.service.dto.UserDto;
 import com.andreyenka.wimixtest.service.exception.NoSuchEntityException;
-import com.andreyenka.wimixtest.service.exception.ValidateException;
 import com.andreyenka.wimixtest.controller.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +27,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
 
-    private final RoleRepository roleRepository;
-
-
     private final PasswordEncoder passwordEncoder;
 
     private final ObjectMapperService mapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, ObjectMapperService mapper) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ObjectMapperService mapper) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
     }
@@ -86,10 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto create(UserDto user) {
         log.debug("Create user={} in database user", user);
-        Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRole(userRole);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        validate(user);
         User userCreated = mapper.toEntity(user);
         userRepository.save(userCreated);
         return mapper.toDto(userCreated);
@@ -113,7 +103,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto update(UserDto user) {
         log.debug("Update user={} in database users", user);
-        validate(user);
         User userUpdated = mapper.toEntity(user);
         userRepository.save(userUpdated);
         return mapper.toDto(userUpdated);
@@ -126,15 +115,5 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NoSuchEntityException("User with id: " + id + " wasn't found"));
         userRepository.deleteById(id);
     }
-
-    private void validate(UserDto user) {
-        if (user == null) {
-            throw new ValidateException("Users can't be empty...");
-        }
-        if (user.getAge() <= 0) {
-            throw new ValidateException("Age is not valid. Age can't be less 0");
-        }
-    }
-
 
 }
