@@ -22,7 +22,7 @@ public class SocketController {
 
     @MessageMapping(SECURED_CHAT)
     @SendTo(SECURED_CHAT_HISTORY)
-    public OutputMessage sendAll(com.andreyenka.wimixtest.entity.socket.Message msg) throws Exception {
+    public OutputMessage sendAll(Message msg) throws Exception {
         return new OutputMessage(msg.getFrom(), msg.getText(), new SimpleDateFormat("HH:mm").format(new Date()));
     }
     @MessageMapping(SECURED_CHAT_ROOM)
